@@ -31,7 +31,7 @@ const AddTodo = (props) => {
             fullWidth
             onChange={onInputChange}
             value={state.item.title}
-            onKeyDown={enterKeyEventHandler}
+            onKeyPress={enterKeyEventHandler}
           />
         </Grid>
         <Grid xs={1} md={1} item>
