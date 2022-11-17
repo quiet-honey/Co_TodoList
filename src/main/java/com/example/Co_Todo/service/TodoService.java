@@ -14,6 +14,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class TodoService {
+
     private final TodoRepository todoRepository;
 
     public String testService() {
@@ -62,8 +63,10 @@ public class TodoService {
         final Optional<Todo> optionalTodo = todoRepository.findById(todo.getId());
         optionalTodo.ifPresent((offeredTodo) -> {
             // spring JPA의 더티체킹 기능 덕에 todoRepository.save(entity)를 해주지 않아도 된다.
-            offeredTodo.setTitle(todo.getTitle()); // todo 내용 수정
-            offeredTodo.setDone(todo.isDone()); // todo 완료
+            offeredTodo.setTitle(todo.getTitle()); // todo 내용 수정 후 저장
+            offeredTodo.setDone(todo.isDone()); // todo 완료 여부 수정 후 저장
+//            offeredTodo.setDate(backupDate); // todo 날짜 저장
+            todoRepository.save(offeredTodo);
         });
         return retrieve(todo.getUserId());
     }

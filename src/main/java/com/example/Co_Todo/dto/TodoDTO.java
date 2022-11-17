@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,11 +15,13 @@ import lombok.NoArgsConstructor;
 public class TodoDTO {
     private String id;
     private String title;
+    private LocalDate date;
     private boolean done;
 
     public TodoDTO(Todo todo) { // 주입되는 todo의 정보에 맞춰 TodoDTO를 생성한 후 전달
         this.id = todo.getId();
         this.title = todo.getTitle();
+        this.date = todo.getDate();
         this.done = todo.isDone();
     }
 
@@ -25,7 +29,9 @@ public class TodoDTO {
         return Todo.builder()
                 .id(todoDTO.getId())
                 .title(todoDTO.getTitle())
+                .date(todoDTO.getDate())
                 .done(todoDTO.isDone())
                 .build();
     }
+
 }

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,9 +33,11 @@ public class TodoController {
     public ResponseEntity<?> createTodo(@RequestBody TodoDTO todoDTO){
         try{
             String tempUserId = "temp-user"; // User ID
+            LocalDate date = LocalDate.now();
             Todo todo = TodoDTO.toTodo(todoDTO); // DB로 넘길 todo를 만들기
             todo.setId(null); // 명시
             todo.setUserId(tempUserId);
+            todo.setDate(date);
             // todo가 올바른 상태인지 확인하고 올바르다면 저장 후에 그대로 반환
             List<Todo> todos = service.create(todo);
             // todos에 들어가 있는 Todo들을 하나씩 순회하면서 TodoDTO로 변경 후에 모두 toDoDTOs에 리스트 형태로 저장
